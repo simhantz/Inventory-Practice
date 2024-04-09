@@ -1,25 +1,40 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public Item itemType;
-    public List<ItemInstance> itemsInventory= new();
+    public List<ItemInstance> itemsInventory = new();
 
-    // Start is called before the first frame update
+    public Item testItem;
+
+    public void AddItem(Item item)
+    {
+        itemsInventory.Add(new ItemInstance(item));
+    }
+    public void RemoveItem(Item item)
+    {
+        itemsInventory.Remove(new ItemInstance(item));
+    }
+    
     void Start()
     {
-        itemsInventory.Add(new ItemInstance(itemType));
-        
+        ItemInstance test = new ItemInstance(testItem);
+        itemsInventory.Add(test);
     }
 }
+
+[System.Serializable]
 public class ItemInstance
 {
     public Item itemType;
+    public int itemDurability;
 
     public ItemInstance(Item item)
     {
-        item.durability = itemType.defaultDurability;
+        itemDurability = item.defaultDurability;
+        itemType = item;
     }
 }
