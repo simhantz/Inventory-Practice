@@ -3,26 +3,26 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using System.Linq;
 
 public class ItemInteraction : MonoBehaviour
 {
     public Item thisItem;
     public Inventory inventory;
 
-    void Start()
-    {
-        thisItem.spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        thisItem.obj = gameObject;
-    }
     public void PickUpOrDestroy()
     {
-        inventory.AddItem(thisItem);
         // Tar bort objektet för nu
+        inventory.AddItem(thisItem);
         Destroy(gameObject);
     }
     public void Place()
     {
-        thisItem.obj.transform.position = Vector3.zero;
-        Instantiate(thisItem.obj);
+        ItemInstance toPlace = inventory.itemsInventory.First();
+        inventory.itemsInventory.Remove(toPlace);
+        // Sätter bara ut en kopia och inte "samma"
+        Instantiate(toPlace.prefab);
+        toPlace.prefab.transform.position = Vector3.zero;
+            //new Vector3(player.transform.position.x, player.transform.position.y + 3);
     }
 }

@@ -9,9 +9,6 @@ public class Item : ScriptableObject
     public string description;
     public int defaultDurability;
 
+    public GameObject prefab;
     public SpriteRenderer spriteRenderer;
-    public GameObject obj;
-
-    
-
 }

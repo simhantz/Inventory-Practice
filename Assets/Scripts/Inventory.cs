@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -21,8 +22,11 @@ public class Inventory : MonoBehaviour
     
     void Start()
     {
-        ItemInstance test = new ItemInstance(testItem);
-        itemsInventory.Add(test);
+        if (testItem != null)
+        {
+            ItemInstance test = new ItemInstance(testItem);
+            itemsInventory.Add(test);
+        }
     }
 }
 
@@ -32,9 +36,18 @@ public class ItemInstance
     public Item itemType;
     public int itemDurability;
 
+    public GameObject prefab;
+
+    private string name;
+    private string description;
+
+
     public ItemInstance(Item item)
     {
-        itemDurability = item.defaultDurability;
         itemType = item;
+        name = item.name;
+        description = item.description;
+        prefab = item.prefab;
+        itemDurability = item.defaultDurability;
     }
 }

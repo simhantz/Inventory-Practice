@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 563d78df98cfe824fa560c9825abd44f, type: 3}
-  m_Name: One Item
+  m_Name: Two Item
   m_EditorClassIdentifier: 
-  name: A Item of Legends
-  description: The ledgendary item of the item king!
-  defaultDurability: 9999
+  name: Item of the Kings
+  description: A king from a item
+  defaultDurability: 69
   spriteRenderer: {fileID: 0}
   prefab: {fileID: 5031398318203290221, guid: 43d93fbf3f7266248b1590bc8bf96d57, type: 3}
