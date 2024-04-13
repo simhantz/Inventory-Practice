@@ -1,35 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class BaseInventory : MonoBehaviour
 {
-    #region Singleton
-    private Inventory() { }
-    private static Inventory instance = null;
-    public static Inventory Instance 
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = new Inventory();
-            }
-            return instance;
-            } 
-    }
-
-    private void Awake()
-    {
-        instance = this;
-    }
-
-    #endregion
-
-
     public int inventorySpaces = 4;
     public List<ItemInstance> itemsInventory = new();
 
@@ -38,8 +12,8 @@ public class Inventory : MonoBehaviour
 
     public bool AddItem(ItemInstance item)
     {
-        if(itemsInventory.Count < inventorySpaces) 
-        { 
+        if (itemsInventory.Count < inventorySpaces)
+        {
             itemsInventory.Add(item);
             return true;
         }

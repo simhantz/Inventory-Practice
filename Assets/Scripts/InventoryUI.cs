@@ -8,6 +8,8 @@ public class InventoryUI : MonoBehaviour
 {
     private TextMeshProUGUI[] slotText;
     private GameObject childPanel;
+    private GameObject childTitleBlock;
+
 
     private string defaultText = "*EMPTY*";
 
@@ -16,6 +18,8 @@ public class InventoryUI : MonoBehaviour
     void Start()
     {
         childPanel = gameObject.transform.GetChild(0).gameObject;
+        childTitleBlock = gameObject.transform.GetChild(1).gameObject;
+
         slotText = childPanel.GetComponentsInChildren<TextMeshProUGUI>();
     }
 
@@ -24,31 +28,19 @@ public class InventoryUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I)) 
         {
+            childTitleBlock.SetActive(!childPanel.activeSelf);
             childPanel.SetActive(!childPanel.activeSelf);
         }
 
-        slotAmount = Inventory.Instance.itemsInventory.Count;
-        for (int i = 0; i < slotAmount; i++)
+        for (int i = 0; i < slotText.Length; i++)
         {
-            slotText[i].text = Inventory.Instance.itemsInventory[i].name;
-
-
-            //if (Inventory.Instance.itemsInventory.ElementAtOrDefault(i + 1) == null)
-            //{
-            //    slotText[i + 1].text = "*EMPTY*";
-            //    return;
-            //}
+            slotText[i].text = defaultText;
         }
 
-        //int j = 0;
-        //foreach (var text in slotText)
-        //{
-        //    if (Inventory.Instance.itemsInventory.ElementAt(j) == null)
-        //    {
-        //        text.text = defaultText;
-        //    }
-        //    j++;
-        //}
-
+        slotAmount = PlayerInventory.Instance.itemsInventory.Count;
+        for (int i = 0; i < slotAmount; i++)
+        {
+            slotText[i].text = PlayerInventory.Instance.itemsInventory[i].name;
+        }
     }
 }

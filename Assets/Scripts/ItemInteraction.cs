@@ -14,7 +14,7 @@ public class ItemInteraction : InteractSystem
         if (inRange)
         {
             ItemInstance thisItemInstance = new ItemInstance(thisItem);
-            if (Inventory.Instance.AddItem(thisItemInstance))
+            if (PlayerInventory.Instance.AddItem(thisItemInstance))
             {
                 Destroy(gameObject);
             }
@@ -22,12 +22,16 @@ public class ItemInteraction : InteractSystem
     }
     public void Place()
     {
-        ItemInstance toPlace = Inventory.Instance.itemsInventory.First();
-        toPlace.itemType = Inventory.Instance.itemsInventory.First().itemType;
-        toPlace.prefab = Inventory.Instance.itemsInventory.First().prefab;
-        toPlace.prefab.transform.position = Player.transform.position;
-        Instantiate(toPlace.prefab);
-        Inventory.Instance.RemoveItem(toPlace);
+        if (PlayerInventory.Instance.itemsInventory.Count > 0)
+        {
+            ItemInstance toPlace = PlayerInventory.Instance.itemsInventory.First();
+            toPlace.itemType = PlayerInventory.Instance.itemsInventory.First().itemType;
+            toPlace.prefab = PlayerInventory.Instance.itemsInventory.First().prefab;
+            toPlace.prefab.transform.position = Player.transform.position;
+            Instantiate(toPlace.prefab);
+            PlayerInventory.Instance.RemoveItem(toPlace);
+        }
+        else Debug.Log("Nothing to place");
     }
     public override void Interact()
     {
