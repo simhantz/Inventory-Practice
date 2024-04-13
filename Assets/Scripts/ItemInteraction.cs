@@ -4,25 +4,36 @@ using System.Runtime.CompilerServices;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 
-public class ItemInteraction : MonoBehaviour
+public class ItemInteraction : InteractSystem
 {
     public Item thisItem;
-    public Inventory inventory;
-
     public void PickUpOrDestroy()
     {
-        // Tar bort objektet för nu
-        inventory.AddItem(thisItem);
-        Destroy(gameObject);
+        if (inRange)
+        {
+            ItemInstance thisItemInstance = new ItemInstance(thisItem);
+            if (Inventory.Instance.AddItem(thisItemInstance))
+            {
+                Destroy(gameObject);
+            }
+        }
     }
     public void Place()
     {
-        ItemInstance toPlace = inventory.itemsInventory.First();
-        inventory.itemsInventory.Remove(toPlace);
-        // Sätter bara ut en kopia och inte "samma"
+        ItemInstance toPlace = Inventory.Instance.itemsInventory.First();
+        toPlace.itemType = Inventory.Instance.itemsInventory.First().itemType;
+        toPlace.prefab = Inventory.Instance.itemsInventory.First().prefab;
+        toPlace.prefab.transform.position = Player.transform.position;
         Instantiate(toPlace.prefab);
-        toPlace.prefab.transform.position = Vector3.zero;
-            //new Vector3(player.transform.position.x, player.transform.position.y + 3);
+        Inventory.Instance.RemoveItem(toPlace);
+    }
+    public override void Interact()
+    {
+        if (Input.GetKeyDown(mainInteractKey))
+        {
+            UnityEvent.Invoke();
+        }
     }
 }

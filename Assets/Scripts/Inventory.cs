@@ -7,19 +7,55 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    #region Singleton
+    private Inventory() { }
+    private static Inventory instance = null;
+    public static Inventory Instance 
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new Inventory();
+            }
+            return instance;
+            } 
+    }
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    #endregion
+
+
+    public int inventorySpaces = 4;
     public List<ItemInstance> itemsInventory = new();
+
 
     public Item testItem;
 
-    public void AddItem(Item item)
+    public bool AddItem(ItemInstance item)
     {
-        itemsInventory.Add(new ItemInstance(item));
+        if(itemsInventory.Count < inventorySpaces) 
+        { 
+            itemsInventory.Add(item);
+            return true;
+        }
+        Debug.Log("Not enough inventory spaces");
+        return false;
     }
-    public void RemoveItem(Item item)
+    public void RemoveItem(ItemInstance item)
     {
-        itemsInventory.Remove(new ItemInstance(item));
+        itemsInventory.Remove(item);
     }
-    
+    // Temporary method
+    public void ClearInventory()
+    {
+        itemsInventory.Clear();
+    }
+
     void Start()
     {
         if (testItem != null)
@@ -38,7 +74,8 @@ public class ItemInstance
 
     public GameObject prefab;
 
-    private string name;
+    public SpriteRenderer spriteRenderer;
+    public string name { get; private set; }
     private string description;
 
 
@@ -49,5 +86,6 @@ public class ItemInstance
         description = item.description;
         prefab = item.prefab;
         itemDurability = item.defaultDurability;
+        spriteRenderer = item.spriteRenderer;
     }
 }

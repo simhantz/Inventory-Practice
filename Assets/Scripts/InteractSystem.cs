@@ -5,14 +5,19 @@ using UnityEngine.Events;
 
 public class InteractSystem : MonoBehaviour
 {
-    public KeyCode interactKey = KeyCode.E;
+    public KeyCode mainInteractKey = KeyCode.E;
     public UnityEvent UnityEvent;
+    public bool inRange = false;
+    public GameObject Player;
 
-    private bool inRange = false;
     private string comparedTag = "Player";
     void Update()
     {
-        if (Input.GetKeyDown(interactKey) && inRange)
+        Interact();
+    }
+    public virtual void Interact()
+    {
+        if (Input.GetKeyDown(mainInteractKey))
         {
             UnityEvent.Invoke();
         }
@@ -22,7 +27,7 @@ public class InteractSystem : MonoBehaviour
         if (collision.gameObject.tag == comparedTag)
         {
             inRange = false;
-            Debug.Log("Outside");
+            //Debug.Log("Outside");
         }
     }
 
@@ -31,7 +36,7 @@ public class InteractSystem : MonoBehaviour
         if (collision.gameObject.tag == comparedTag)
         {
             inRange = true;
-            Debug.Log("Inside");
+            //Debug.Log("Inside");
         }
     }
 }

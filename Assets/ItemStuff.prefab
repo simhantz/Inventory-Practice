@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5031398318203290221}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: -3, z: 0}
+  m_LocalPosition: {x: 5.3152413, y: -3.4850001, z: 0}
   m_LocalScale: {x: 3.1, y: 3.1, z: 3.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d3e728d8e8eca4f89a7b5aae285665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactKey: 101
+  mainInteractKey: 101
   UnityEvent:
     m_PersistentCalls:
       m_Calls:
@@ -63,6 +63,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inRange: 0
+  Player: {fileID: 0}
 --- !u!114 &7593225211997608492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,8 +77,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed9ecaec97ee824d96efb28239ac3b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisItem: {fileID: 0}
-  inventory: {fileID: 0}
+  mainInteractKey: 101
+  UnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  inRange: 0
+  Player: {fileID: 0}
+  thisItem: {fileID: 11400000, guid: 0c550b8046775054fa69dc51358cebcf, type: 2}
 --- !u!212 &4756099676262862489
 SpriteRenderer:
   m_ObjectHideFlags: 0
